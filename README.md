@@ -137,7 +137,7 @@ This game teaches:
 
 ## 🤝 Contributing
 
-Built with ❤️ for the Computer Science Society of Nottingham.
+Built with ❤️ for the Computer Science Society of Nottingham by Shahjalal Mosharof.
 
 ## 📝 License
 
@@ -145,9 +145,9 @@ MIT License - Free for educational use.
 
 ## 🌟 Credits
 
-Developed as an educational tool for students to learn digital logic in an interactive and engaging way.
+Developed as an fun game for CS Fair.
 
 ---
 
 **Computer Science Society of Nottingham**  
-*Making Computer Science Fun and Accessible*
+*Building bytes and creating bonds*
