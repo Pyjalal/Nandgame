@@ -45,6 +45,8 @@ const Board: React.FC<BoardProps> = ({ className }) => {
     addWire,
     removeWire,
     selectNode,
+    resetTrigger,
+    wires: storeWires,
   } = useGameStore();
 
   // Initialize nodes from level
@@ -74,7 +76,21 @@ const Board: React.FC<BoardProps> = ({ className }) => {
       setNodes(initialNodes);
       setEdges([]);
     }
-  }, [currentLevel, setNodes, setEdges]);
+  }, [currentLevel, resetTrigger, setNodes, setEdges]);
+
+  // Sync edges with store wires (for undo functionality)
+  React.useEffect(() => {
+    const reactFlowEdges: Edge[] = storeWires.map(wire => ({
+      id: wire.id,
+      source: wire.source,
+      target: wire.target,
+      sourceHandle: wire.sourceHandle,
+      targetHandle: wire.targetHandle,
+      animated: wire.animated || false,
+      style: { stroke: '#84D594', strokeWidth: 2 },
+    }));
+    setEdges(reactFlowEdges);
+  }, [storeWires, resetTrigger, setEdges]);
 
   const onConnect = useCallback(
     (params: Connection) => {

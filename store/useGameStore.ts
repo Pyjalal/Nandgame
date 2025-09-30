@@ -37,7 +37,8 @@ interface GameStore {
   showTruthTable: boolean;
   showHint: boolean;
   isPaused: boolean;
-  
+  resetTrigger: number;
+
   // Actions
   loadLevel: (level: Level) => void;
   addNode: (node: LogicNode) => void;
@@ -45,6 +46,7 @@ interface GameStore {
   updateNode: (nodeId: string, updates: Partial<LogicNode>) => void;
   addWire: (wire: Wire) => void;
   removeWire: (wireId: string) => void;
+  undoLastWire: () => void;
   selectNode: (nodeId: string | null) => void;
   hoverNode: (nodeId: string | null) => void;
   simulate: () => void;
@@ -80,6 +82,7 @@ const useGameStore = create<GameStore>()(
     showTruthTable: false,
     showHint: false,
     isPaused: false,
+    resetTrigger: 0,
 
     // Actions
     loadLevel: (level: Level) => {
@@ -177,6 +180,16 @@ const useGameStore = create<GameStore>()(
       });
     },
 
+    undoLastWire: () => {
+      set((state) => {
+        if (state.wires.length > 0) {
+          state.wires.pop();
+          state.wiresUsed = Math.max(0, state.wiresUsed - 1);
+          state.resetTrigger++;
+        }
+      });
+    },
+
     selectNode: (nodeId: string | null) => {
       set((state) => {
         state.selectedNodeId = nodeId;
@@ -250,10 +263,34 @@ const useGameStore = create<GameStore>()(
     },
 
     reset: () => {
-      const state = get();
-      if (state.currentLevel) {
-        state.loadLevel(state.currentLevel);
-      }
+      set((state) => {
+        if (state.currentLevel) {
+          // Clear all wires and non-locked nodes
+          state.wires = [];
+          state.wiresUsed = 0;
+          state.simulationResult = null;
+          state.truthTableMatches = [];
+          state.simulationErrors = [];
+          state.timeElapsed = 0;
+          state.hintsUsed = 0;
+          state.showHint = false;
+
+          // Increment reset trigger to force Board component to reset
+          state.resetTrigger++;
+
+          // Reset gates count based on locked gates only
+          let lockedGatesCount = 0;
+          state.nodes.forEach((node) => {
+            if (node.type === 'GATE' && node.locked) {
+              lockedGatesCount++;
+            } else if (node.type === 'GATE' && !node.locked) {
+              // Remove non-locked gates
+              state.nodes.delete(node.id);
+            }
+          });
+          state.gatesUsed = lockedGatesCount;
+        }
+      });
     },
 
     toggleTruthTable: () => {

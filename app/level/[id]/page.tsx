@@ -13,16 +13,17 @@ import useGameStore from '@/store/useGameStore';
 import { getLevelById, getNextLevelId } from '@/lib/levels/levelData';
 import { levels } from '@/lib/levels/levelData';
 import { useToast } from '@/components/ui/use-toast';
-import { 
-  Play, 
-  RotateCcw, 
-  Home, 
-  ChevronLeft, 
+import {
+  Play,
+  RotateCcw,
+  Home,
+  ChevronLeft,
   ChevronRight,
   Timer,
   Lightbulb,
   CheckCircle2,
-  XCircle
+  XCircle,
+  Undo
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -37,6 +38,7 @@ export default function LevelPage() {
     loadLevel,
     simulate,
     reset,
+    undoLastWire,
     truthTableMatches,
     simulationResult,
     timeElapsed,
@@ -233,14 +235,25 @@ export default function LevelPage() {
                   Simulate Circuit
                 </Button>
                 
-                <Button
-                  onClick={handleReset}
-                  variant="outline"
-                  className="w-full text-off-white"
-                >
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  Reset Level
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={undoLastWire}
+                    variant="outline"
+                    className="flex-1 text-off-white"
+                    disabled={wiresUsed === 0}
+                  >
+                    <Undo className="w-4 h-4 mr-2" />
+                    Undo
+                  </Button>
+                  <Button
+                    onClick={handleReset}
+                    variant="outline"
+                    className="flex-1 text-off-white"
+                  >
+                    <RotateCcw className="w-4 h-4 mr-2" />
+                    Reset
+                  </Button>
+                </div>
                 
                 {currentLevel.hint && (
                   <Button
