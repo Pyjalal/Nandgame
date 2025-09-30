@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* CS Society Colors */
+    --lavender: 170 149 198;
+    --charcoal: 30 31 41;
+    --off-white: 233 236 235;
+    --violet: 146 134 181;
+    --mint: 132 213 148;
+    --magenta: 223 164 216;
+    --error: 255 107 107;
+    --warning: 255 217 61;
+
+    /* Light theme - using ONLY CS Society colors */
+    --background: 233 236 235; /* off-white */
+    --foreground: 30 31 41; /* charcoal */
+    --card: 233 236 235; /* off-white */
+    --card-foreground: 30 31 41; /* charcoal */
+    --popover: 233 236 235; /* off-white */
+    --popover-foreground: 30 31 41; /* charcoal */
+    --primary: 170 149 198; /* lavender */
+    --primary-foreground: 233 236 235; /* off-white */
+    --secondary: 146 134 181; /* violet */
+    --secondary-foreground: 233 236 235; /* off-white */
+    --muted: 233 236 235; /* off-white with opacity via bg-opacity */
+    --muted-foreground: 30 31 41; /* charcoal with opacity via text-opacity */
+    --accent: 132 213 148; /* mint */
+    --accent-foreground: 30 31 41; /* charcoal */
+    --destructive: 255 107 107; /* error */
+    --destructive-foreground: 233 236 235; /* off-white */
+    --border: 170 149 198; /* lavender - will use with opacity */
+    --input: 170 149 198; /* lavender - will use with opacity */
+    --ring: 170 149 198; /* lavender */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 30 31 41; /* charcoal */
+    --foreground: 233 236 235; /* off-white */
+    --card: 30 31 41; /* charcoal */
+    --card-foreground: 233 236 235; /* off-white */
+    --popover: 30 31 41; /* charcoal */
+    --popover-foreground: 233 236 235; /* off-white */
+    --primary: 170 149 198; /* lavender */
+    --primary-foreground: 30 31 41; /* charcoal */
+    --secondary: 146 134 181; /* violet */
+    --secondary-foreground: 30 31 41; /* charcoal */
+    --muted: 30 31 41; /* charcoal - will use with opacity */
+    --muted-foreground: 233 236 235; /* off-white with opacity */
+    --accent: 132 213 148; /* mint */
+    --accent-foreground: 30 31 41; /* charcoal */
+    --destructive: 255 107 107; /* error */
+    --destructive-foreground: 30 31 41; /* charcoal */
+    --border: 170 149 198; /* lavender - will use with opacity */
+    --input: 170 149 198; /* lavender - will use with opacity */
+    --ring: 170 149 198; /* lavender */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Circuit Board Styles */
+.circuit-board {
+  background: linear-gradient(to bottom, rgb(30, 31, 41), rgb(41, 42, 56));
+  background-image: 
+    linear-gradient(rgba(170, 149, 198, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(170, 149, 198, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Gate Styles */
+.gate-and {
+  @apply bg-gate-and shadow-lg;
+  box-shadow: 0 0 20px rgba(132, 213, 148, 0.3); /* mint color */
+}
+
+.gate-or {
+  @apply bg-gate-or shadow-lg;
+  box-shadow: 0 0 20px rgba(223, 164, 216, 0.3); /* magenta color */
+}
+
+.gate-xor {
+  @apply bg-gate-xor shadow-lg;
+  box-shadow: 0 0 20px rgba(146, 134, 181, 0.3); /* violet color */
+}
+
+.gate-not {
+  @apply bg-gate-not shadow-lg;
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.3); /* error color */
+}
+
+/* Wire Styles */
+.wire-active {
+  stroke: rgb(132, 213, 148); /* mint color */
+  stroke-width: 3;
+  filter: drop-shadow(0 0 8px rgba(132, 213, 148, 0.8)); /* mint color */
+  animation: flow 1s linear infinite;
+}
+
+.wire-inactive {
+  stroke: rgb(146, 134, 181); /* violet color with opacity */
+  stroke-width: 2;
+  opacity: 0.5;
+}
+
+/* Glassmorphism */
+.glass {
+  @apply backdrop-blur-md bg-charcoal/10 border border-lavender/20;
+}
+
+.glass-dark {
+  @apply backdrop-blur-md bg-charcoal/20 border border-lavender/10;
+}
+
+/* React Flow Overrides */
+.react-flow__node {
+  font-size: 12px;
+}
+
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background: rgb(170, 149, 198);
+  border: 2px solid rgb(233, 236, 235);
+}
+
+.react-flow__handle-connecting {
+  background: rgb(132, 213, 148);
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(170, 149, 198, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(170, 149, 198, 0.8);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .circuit-board {
+    background-size: 30px 30px;
+  }
+  
+  /* Improve touch targets for mobile */
+  .react-flow__handle {
+    width: 15px;
+    height: 15px;
+    background-color: rgb(170, 149, 198); /* Use CS Society lavender color */
+    border: 2px solid rgb(233, 236, 235); /* Use CS Society off-white color */
+  }
+  
+  .react-flow__handle-connecting {
+    background: rgb(132, 213, 148); /* Use CS Society mint color */
+  }
+  
+  /* Adjust node sizes for better mobile visibility */
+  .react-flow__node {
+    font-size: 14px;
+    box-shadow: 0 5px 10px rgba(30, 31, 41, 0.5); /* Use CS Society charcoal for shadow */
+    transform-origin: center;
+    transition: transform 0.2s;
+  }
+  
+  /* Scale up nodes slightly when selected for better touch interaction */
+  .react-flow__node-selected {
+    transform: scale(1.05);
+  }
+  
+  /* Mobile-friendly controls */
+  .react-flow__controls {
+    box-shadow: 0 0 15px rgba(170, 149, 198, 0.3); /* Use CS Society lavender for glow */
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(30, 31, 41, 0.7); /* Use CS Society charcoal with transparency */
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(170, 149, 198, 0.2); /* Use CS Society lavender for border */
+  }
+  
+  .react-flow__controls button {
+    width: 28px;
+    height: 28px;
+    padding: 6px;
+    color: rgb(233, 236, 235); /* Use CS Society off-white color */
+    background-color: rgba(30, 31, 41, 0.8); /* Use CS Society charcoal color */
+  }
+  
+  /* Gate palette adjustments for mobile */
+  .gate-palette-mobile {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+  }
+  
+  /* Mobile-friendly cards */
+  .glass-dark {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(170, 149, 198, 0.2); /* Use CS Society lavender */
+  }
+}
