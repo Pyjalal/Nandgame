@@ -47,6 +47,8 @@ export default function LevelPage() {
     wiresUsed,
     showHint,
     toggleHint,
+    showSolution,
+    toggleSolution,
     stars
   } = useGameStore();
 
@@ -265,11 +267,22 @@ export default function LevelPage() {
                     {showHint ? 'Hide' : 'Show'} Hint
                   </Button>
                 )}
-                
+
                 {showHint && currentLevel.hint && (
                   <div className="p-3 bg-warning/10 border border-warning/20 rounded-lg">
                     <p className="text-sm text-warning">{currentLevel.hint}</p>
                   </div>
+                )}
+
+                {currentLevel.mode === 'csfair' && currentLevel.solutionWiring && (
+                  <Button
+                    onClick={toggleSolution}
+                    variant="outline"
+                    className="w-full text-off-white"
+                  >
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    {showSolution ? 'Hide' : 'Show'} Solution
+                  </Button>
                 )}
                 
                 {isLevelComplete && (

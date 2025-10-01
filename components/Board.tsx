@@ -47,6 +47,7 @@ const Board: React.FC<BoardProps> = ({ className }) => {
     selectNode,
     resetTrigger,
     wires: storeWires,
+    showSolution,
   } = useGameStore();
 
   // Initialize nodes from level
@@ -87,10 +88,27 @@ const Board: React.FC<BoardProps> = ({ className }) => {
       sourceHandle: wire.sourceHandle,
       targetHandle: wire.targetHandle,
       animated: wire.animated || false,
-      style: { stroke: '#84D594', strokeWidth: 2 },
+      style: { stroke: 'rgb(var(--mint))', strokeWidth: 2 },
     }));
-    setEdges(reactFlowEdges);
-  }, [storeWires, resetTrigger, setEdges]);
+
+    // Add solution wires if showSolution is true
+    if (showSolution && currentLevel?.solutionWiring) {
+      const solutionEdges: Edge[] = currentLevel.solutionWiring.map((wire, index) => ({
+        id: `solution-${wire.source}-${wire.target}-${index}`,
+        source: wire.source,
+        target: wire.target,
+        animated: true,
+        style: {
+          stroke: 'rgb(var(--warning))',
+          strokeWidth: 3,
+          strokeDasharray: '5,5'
+        },
+      }));
+      setEdges([...reactFlowEdges, ...solutionEdges]);
+    } else {
+      setEdges(reactFlowEdges);
+    }
+  }, [storeWires, resetTrigger, showSolution, currentLevel, setEdges]);
 
   const onConnect = useCallback(
     (params: Connection) => {
@@ -113,7 +131,7 @@ const Board: React.FC<BoardProps> = ({ className }) => {
         sourceHandle: params.sourceHandle || undefined,
         targetHandle: params.targetHandle || undefined,
         animated: false,
-        style: { stroke: '#84D594', strokeWidth: 2 },
+        style: { stroke: 'rgb(var(--mint))', strokeWidth: 2 },
       };
 
       setEdges((eds) => addEdge(newEdge, eds));
@@ -220,7 +238,7 @@ const Board: React.FC<BoardProps> = ({ className }) => {
         fitView
         className="circuit-board"
       >
-        <Background color="#AA95C6" gap={50} variant={"dots" as any} />
+        <Background color={"rgb(var(--lavender))"} gap={50} variant={"lines" as any} />
         <Controls />
       </ReactFlow>
     </div>

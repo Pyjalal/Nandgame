@@ -36,6 +36,7 @@ interface GameStore {
   // UI state
   showTruthTable: boolean;
   showHint: boolean;
+  showSolution: boolean;
   isPaused: boolean;
   resetTrigger: number;
 
@@ -53,6 +54,7 @@ interface GameStore {
   reset: () => void;
   toggleTruthTable: () => void;
   toggleHint: () => void;
+  toggleSolution: () => void;
   updateTime: (time: number) => void;
   nextLevel: () => void;
   previousLevel: () => void;
@@ -81,6 +83,7 @@ const useGameStore = create<GameStore>()(
     wiresUsed: 0,
     showTruthTable: false,
     showHint: false,
+    showSolution: false,
     isPaused: false,
     resetTrigger: 0,
 
@@ -211,6 +214,8 @@ const useGameStore = create<GameStore>()(
       set((state) => {
         state.isSimulating = true;
         state.simulationErrors = [];
+        // Keep target truth table in sync with the level definition
+        state.targetTruthTable = state.currentLevel?.targetTruth || null;
       });
 
       // Find input and output nodes
@@ -230,21 +235,36 @@ const useGameStore = create<GameStore>()(
       console.log('Output ID:', outputId);
 
       // Generate truth table
-      const actualTruthTable = generateTruthTable(nodes, wires, inputIds, outputId);
+      const truthTableResult = generateTruthTable(nodes, wires, inputIds, outputId);
+      const actualTruthTable = truthTableResult.rows;
+      const evaluationErrors = truthTableResult.errors;
 
       console.log('Actual Truth Table:', actualTruthTable);
       console.log('Target Truth Table:', currentLevel.targetTruth);
+      console.log('Evaluation Errors:', evaluationErrors);
+
+      // If there are evaluation errors, don't show results
+      if (evaluationErrors.length > 0) {
+        set((state) => {
+          state.simulationResult = null;
+          state.truthTableMatches = [];
+          state.simulationErrors = evaluationErrors;
+          state.isSimulating = false;
+        });
+        return;
+      }
 
       // Compare with target
       const comparison = compareTruthTables(actualTruthTable, currentLevel.targetTruth);
 
       console.log('Comparison:', comparison);
-      
+
       set((state) => {
         state.simulationResult = actualTruthTable;
-        state.truthTableMatches = actualTruthTable.map((_, i) => 
+        state.truthTableMatches = actualTruthTable.map((_, i) =>
           !comparison.mismatches.includes(i)
         );
+        state.simulationErrors = [];
         state.isSimulating = false;
         
         // Check if level is complete
@@ -305,6 +325,12 @@ const useGameStore = create<GameStore>()(
         if (!state.showHint) {
           state.hintsUsed++;
         }
+      });
+    },
+
+    toggleSolution: () => {
+      set((state) => {
+        state.showSolution = !state.showSolution;
       });
     },
 

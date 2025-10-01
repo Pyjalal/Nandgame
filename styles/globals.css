@@ -143,6 +143,49 @@
   stroke-width: 2;
 }
 
+/* React Flow Controls - Desktop */
+.react-flow__controls {
+  box-shadow: 0 0 15px rgba(170, 149, 198, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgba(30, 31, 41, 0.7);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(170, 149, 198, 0.2);
+}
+
+.react-flow__controls button {
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  color: rgb(233, 236, 235);
+  background-color: rgba(30, 31, 41, 0.8);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.react-flow__controls button:hover {
+  background-color: rgba(146, 134, 181, 0.2);
+}
+
+.react-flow__controls button:active {
+  transform: scale(0.96);
+}
+
+/* Focus-visible for controls (lavender) */
+.react-flow__controls button:focus-visible {
+  outline: 2px solid rgba(170, 149, 198, 0.9);
+  outline-offset: 2px;
+}
+
+/* Handle feedback */
+.react-flow__handle {
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 0 rgba(170, 149, 198, 0);
+}
+
+.react-flow__handle:hover {
+  box-shadow: 0 0 8px rgba(170, 149, 198, 0.6);
+}
+
 /* Animations */
 @keyframes pulse-glow {
   0%, 100% {

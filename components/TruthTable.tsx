@@ -7,11 +7,12 @@ import useGameStore from '@/store/useGameStore';
 import { CheckCircle2, XCircle } from 'lucide-react';
 
 export default function TruthTable() {
-  const { 
-    simulationResult, 
-    targetTruthTable, 
+  const {
+    simulationResult,
+    targetTruthTable,
     truthTableMatches,
-    currentLevel 
+    currentLevel,
+    simulationErrors
   } = useGameStore();
 
   if (!currentLevel || !targetTruthTable) return null;
@@ -92,11 +93,24 @@ export default function TruthTable() {
             </tbody>
           </table>
         </div>
-        {!simulationResult && (
+        {!simulationResult && simulationErrors.length === 0 && (
           <div className="mt-4 p-3 bg-charcoal/50 rounded-lg">
             <p className="text-xs text-off-white/70">
               Build your circuit and click "Simulate" to test it against the target truth table.
             </p>
+          </div>
+        )}
+        {simulationErrors.length > 0 && (
+          <div className="mt-4 p-3 bg-error/10 border border-error/20 rounded-lg">
+            <div className="flex items-start gap-2">
+              <XCircle className="w-4 h-4 text-error mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-semibold text-error mb-1">Circuit Errors:</p>
+                {simulationErrors.map((error, idx) => (
+                  <p key={idx} className="text-xs text-error/90">• {error}</p>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </CardContent>

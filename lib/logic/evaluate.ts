@@ -136,10 +136,11 @@ export function generateTruthTable(
   wires: Wire[],
   inputIds: string[],
   outputId: string
-): TruthTableRow[] {
+): { rows: TruthTableRow[]; errors: string[] } {
   const rows: TruthTableRow[] = [];
   const numInputs = inputIds.length;
   const numRows = Math.pow(2, numInputs);
+  let accumulatedErrors: string[] = [];
 
   for (let i = 0; i < numRows; i++) {
     const inputValues = new Map<string, boolean>();
@@ -150,7 +151,7 @@ export function generateTruthTable(
       const value = Boolean((i >> (numInputs - 1 - j)) & 1);
       const inputId = inputIds[j];
       inputValues.set(inputId, value);
-      
+
       // Find the label for this input
       const inputNode = nodes.get(inputId);
       const label = inputNode?.label || inputId;
@@ -166,14 +167,18 @@ export function generateTruthTable(
       // Always use 'Y' as the output label for consistency with target truth table
       row['Y'] = outputValue ? 1 : 0;
     } else {
-      // If evaluation fails, set output to 0
+      // If evaluation fails, accumulate errors and don't set output
+      if (i === 0) {
+        // Only collect errors from first row to avoid duplicates
+        accumulatedErrors = result.errors;
+      }
       row['Y'] = 0;
     }
 
     rows.push(row);
   }
 
-  return rows;
+  return { rows, errors: accumulatedErrors };
 }
 
 export function compareTruthTables(

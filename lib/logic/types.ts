@@ -58,6 +58,10 @@ export interface Level {
   hint?: string;
   difficulty?: 'easy' | 'medium' | 'hard';
   mode?: 'standard' | 'csfair';
+  solutionWiring?: {
+    source: string;
+    target: string;
+  }[];
 }
 
 export interface GameState {

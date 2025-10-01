@@ -300,13 +300,13 @@ export const levels: Level[] = [
     description: "All gates are placed! Find the correct wiring to create this mystery circuit",
     inputs: ["A", "B", "C"],
     targetTruth: [
-      { A: 0, B: 0, C: 0, Y: 0 },
+      { A: 0, B: 0, C: 0, Y: 1 },
       { A: 0, B: 0, C: 1, Y: 1 },
       { A: 0, B: 1, C: 0, Y: 1 },
       { A: 0, B: 1, C: 1, Y: 0 },
       { A: 1, B: 0, C: 0, Y: 1 },
-      { A: 1, B: 0, C: 1, Y: 0 },
-      { A: 1, B: 1, C: 0, Y: 0 },
+      { A: 1, B: 0, C: 1, Y: 1 },
+      { A: 1, B: 1, C: 0, Y: 1 },
       { A: 1, B: 1, C: 1, Y: 1 }
     ],
     allowedGates: [],
@@ -328,7 +328,19 @@ export const levels: Level[] = [
     singleOutputId: "lampY",
     hint: "Look at the truth table pattern carefully. Try combining XOR operations with logic that handles specific cases. The solution involves: (A XOR B XOR C) OR NOT(B AND C)",
     difficulty: "medium",
-    mode: "csfair"
+    mode: "csfair",
+    solutionWiring: [
+      { source: "inA", target: "gate1" },
+      { source: "inB", target: "gate1" },
+      { source: "gate1", target: "gate2" },
+      { source: "inC", target: "gate2" },
+      { source: "inB", target: "gate3" },
+      { source: "inC", target: "gate3" },
+      { source: "gate3", target: "gate4" },
+      { source: "gate2", target: "gate5" },
+      { source: "gate4", target: "gate5" },
+      { source: "gate5", target: "lampY" }
+    ]
   }
 ];
 
