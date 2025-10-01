@@ -139,10 +139,10 @@ export default function LevelPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-charcoal via-violet/80 to-lavender/40 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet to-lavender p-4">
       <div className="h-[calc(100vh-2rem)] flex flex-col">
         {/* Header */}
-        <div className="bg-charcoal/50 backdrop-blur-md rounded-lg p-4 mb-4 border border-lavender/20">
+        <div className="bg-charcoal/50 backdrop-blur-md rounded-lg p-4 pb-2 mb-4 border border-lavender/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/">
@@ -196,6 +196,10 @@ export default function LevelPage() {
               </div>
             </div>
           </div>
+          {/* Copyright in header */}
+          <div className="text-center text-off-white/40 text-xs mt-2 pt-2 border-t border-lavender/10">
+            Made by © Shahjalal
+          </div>
         </div>
 
         {/* Main Content */}
@@ -208,8 +212,8 @@ export default function LevelPage() {
           </div>
 
           {/* Center - Circuit Board */}
-          <div className="col-span-12 md:col-span-7 order-first md:order-none">
-            <Card className="h-full glass-dark border-lavender/20">
+          <div className="col-span-12 md:col-span-7 order-first md:order-none min-h-[400px] md:min-h-0">
+            <Card className="h-full min-h-[400px] md:min-h-0 glass-dark border-lavender/20">
               <CardContent className="p-0 h-full">
                 <Board className="h-full" />
               </CardContent>

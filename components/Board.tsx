@@ -237,9 +237,30 @@ const Board: React.FC<BoardProps> = ({ className }) => {
         nodeTypes={nodeTypes}
         fitView
         className="circuit-board"
+        // Mobile-friendly settings
+        panOnScroll={true}
+        panOnDrag={true}
+        zoomOnScroll={true}
+        zoomOnPinch={true}
+        zoomOnDoubleClick={false}
+        panOnScrollSpeed={0.5}
+        minZoom={0.3}
+        maxZoom={2}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
+        // Touch-friendly connection settings
+        connectionMode="loose"
+        connectOnClick={true}
+        // Prevent accidental deletions on mobile
+        deleteKeyCode={["Delete", "Backspace"]}
+        multiSelectionKeyCode={null}
       >
         <Background color={"rgb(var(--lavender))"} gap={50} variant={"lines" as any} />
-        <Controls />
+        <Controls
+          showZoom={true}
+          showFitView={true}
+          showInteractive={false}
+          position="bottom-right"
+        />
       </ReactFlow>
     </div>
   );

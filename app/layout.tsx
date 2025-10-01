@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <div className="min-h-screen bg-gradient-to-br from-charcoal via-violet/80 to-lavender/40">
+        <div className="min-h-screen bg-gradient-to-br from-violet to-lavender">
           {children}
           <Toaster />
         </div>

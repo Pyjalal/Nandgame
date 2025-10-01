@@ -31,7 +31,7 @@ export default function HomePage() {
   const csfairLevels = levels.filter(l => l.mode === 'csfair');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-charcoal via-violet/80 to-lavender/40 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet to-lavender p-4">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="text-center mb-6 md:mb-8 mt-4 md:mt-8">
@@ -53,6 +53,38 @@ export default function HomePage() {
             Master digital logic through interactive circuit puzzles
           </p>
         </div>
+
+        {/* Featured: CS Fair Mode - Big Banner */}
+        <Link href="/level/CSF01_circuit_mystery">
+          <Card className="glass-dark border-violet/40 hover:border-violet/60 transition-all mb-6 shadow-lg shadow-violet/20 hover:shadow-violet/30 cursor-pointer">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="bg-violet/20 p-4 rounded-lg border-2 border-violet/40">
+                    <Puzzle className="w-10 h-10 text-violet" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h2 className="text-2xl font-bold text-off-white">CS Fair Mode</h2>
+                      <span className="px-3 py-1 text-xs bg-violet/20 text-violet rounded-full border border-violet/40 font-semibold">
+                        SPECIAL
+                      </span>
+                    </div>
+                    <p className="text-off-white/80 text-sm md:text-base">
+                      🎯 All gates are pre-placed! Find the correct wire connections to solve the circuit puzzle.
+                    </p>
+                    <p className="text-violet text-xs mt-1">
+                      Challenge yourself with connection-only puzzles →
+                    </p>
+                  </div>
+                </div>
+                <Button variant="gate" size="lg" className="hidden md:flex bg-violet hover:bg-violet/80">
+                  Play Now
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
@@ -283,6 +315,11 @@ export default function HomePage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Copyright Footer */}
+        <div className="mt-8 mb-4 text-center text-off-white/50 text-sm">
+          Made by © Shahjalal
+        </div>
       </div>
     </div>
   );

@@ -83,10 +83,10 @@ export default function SandboxPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-charcoal via-violet/80 to-lavender/40 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet to-lavender p-4">
       <div className="h-[calc(100vh-2rem)] flex flex-col">
         {/* Header */}
-        <div className="bg-charcoal/50 backdrop-blur-md rounded-lg p-4 mb-4 border border-lavender/20">
+        <div className="bg-charcoal/50 backdrop-blur-md rounded-lg p-4 pb-2 mb-4 border border-lavender/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/">
@@ -118,18 +118,24 @@ export default function SandboxPage() {
               </Button>
             </div>
           </div>
+          {/* Copyright in header */}
+          <div className="text-center text-off-white/40 text-xs mt-2 pt-2 border-t border-lavender/10">
+            Made by © Shahjalal
+          </div>
         </div>
 
         {/* Main Content */}
         <div className="flex-1 grid grid-cols-12 gap-4 min-h-0">
           {/* Left Panel - Gate Palette */}
-          <div className="col-span-2 overflow-y-auto">
-            <GatePalette />
+          <div className="col-span-12 md:col-span-2 overflow-y-auto">
+            <div className="md:block hidden">
+              <GatePalette />
+            </div>
           </div>
 
           {/* Center - Circuit Board */}
-          <div className="col-span-7">
-            <Card className="h-full glass-dark border-lavender/20">
+          <div className="col-span-12 md:col-span-7 order-first md:order-none min-h-[400px] md:min-h-0">
+            <Card className="h-full min-h-[400px] md:min-h-0 glass-dark border-lavender/20">
               <CardContent className="p-0 h-full">
                 <Board className="h-full" />
               </CardContent>
@@ -137,7 +143,11 @@ export default function SandboxPage() {
           </div>
 
           {/* Right Panel - Truth Table & Controls */}
-          <div className="col-span-3 flex flex-col gap-4">
+          <div className="col-span-12 md:col-span-3 flex flex-col gap-4">
+            {/* Mobile Gate Palette */}
+            <div className="block md:hidden">
+              <GatePalette />
+            </div>
             <TruthTable />
             
             {/* Control Buttons */}
