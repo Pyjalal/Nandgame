@@ -10,7 +10,11 @@ interface GateNodeData {
   error?: boolean;
 }
 
-const GateNode: React.FC<NodeProps<GateNodeData>> = ({ data, selected }) => {
+interface GateNodeProps extends NodeProps<GateNodeData> {
+  draggable?: boolean;
+}
+
+const GateNode: React.FC<GateNodeProps> = ({ data, selected, draggable = true }) => {
   const gateColors = {
     AND: 'gate-and',
     OR: 'gate-or',
@@ -37,17 +41,18 @@ const GateNode: React.FC<NodeProps<GateNodeData>> = ({ data, selected }) => {
   return (
     <div
       className={cn(
-        'px-6 py-4 shadow-lg rounded-lg border-2 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl min-w-[90px] cursor-grab active:cursor-grabbing select-none',
+        'px-6 py-4 shadow-lg rounded-lg border-2 transition-transform duration-200 min-w-[90px] select-none',
         gateColors[data.gateType],
         'border-transparent',
         selected && 'ring-2 ring-lavender',
         data.error && 'ring-2 ring-error animate-pulse',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lavender',
-        'touch-none' // Improve touch dragging
+        draggable ? 'cursor-grab active:cursor-grabbing hover:-translate-y-0.5 hover:shadow-xl touch-none' : 'cursor-default',
+        !draggable && 'ring-2 ring-lavender/40' // Show locked nodes with subtle ring
       )}
       tabIndex={0}
       aria-selected={selected}
-      aria-label={`Gate ${data.gateType} ${data.value ? 'active' : 'inactive'}`}
+      aria-label={`Gate ${data.gateType} ${data.value ? 'active' : 'inactive'}${draggable ? '' : ' (locked)'}`}
       title={gateDescriptions[data.gateType]}
     >
       <div className="text-off-white font-bold text-center pointer-events-none">
