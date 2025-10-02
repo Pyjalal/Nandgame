@@ -25,6 +25,13 @@ const GateNode: React.FC<NodeProps<GateNodeData>> = ({ data, selected }) => {
     NOT: '1'
   };
 
+  const gateDescriptions = {
+    AND: 'AND: 1 only if both inputs are 1',
+    OR: 'OR: 1 if at least one input is 1',
+    XOR: 'XOR: 1 when inputs are different',
+    NOT: 'NOT: Inverts the input (1→0, 0→1)'
+  };
+
   const maxInputs = data.gateType === 'NOT' ? 1 : 4;
 
   return (
@@ -40,6 +47,7 @@ const GateNode: React.FC<NodeProps<GateNodeData>> = ({ data, selected }) => {
       tabIndex={0}
       aria-selected={selected}
       aria-label={`Gate ${data.gateType} ${data.value ? 'active' : 'inactive'}`}
+      title={gateDescriptions[data.gateType]}
     >
       <div className="text-off-white font-bold text-center">
         <div className="text-xs opacity-80">{data.gateType}</div>

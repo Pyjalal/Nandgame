@@ -148,6 +148,22 @@ export default function SandboxPage() {
             <div className="block md:hidden">
               <GatePalette />
             </div>
+
+            {/* Gate Reference */}
+            <Card className="glass-dark border-lavender/20">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-off-white text-sm">Gate Reference</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1">
+                <div className="text-xs text-off-white/80">
+                  <p><span className="font-bold text-mint">AND:</span> 1 only if both inputs are 1</p>
+                  <p><span className="font-bold text-magenta">OR:</span> 1 if at least one input is 1</p>
+                  <p><span className="font-bold text-violet">XOR:</span> 1 when inputs are different</p>
+                  <p><span className="font-bold text-error">NOT:</span> Inverts the input (1→0, 0→1)</p>
+                </div>
+              </CardContent>
+            </Card>
+
             <TruthTable />
             
             {/* Control Buttons */}

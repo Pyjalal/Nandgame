@@ -184,6 +184,27 @@
   outline-offset: 2px;
 }
 
+/* Make built-in React Flow control icons white */
+.react-flow__controls { color: rgb(233, 236, 235); }
+.react-flow__controls button { color: rgb(233, 236, 235) !important; }
+.react-flow__controls .react-flow__controls-button { color: rgb(233, 236, 235) !important; }
+.react-flow__controls button svg { 
+  color: rgb(233, 236, 235) !important; 
+}
+.react-flow__controls button svg *,
+.react-flow__controls .react-flow__controls-button svg * {
+  fill: rgb(233, 236, 235) !important; /* off-white */
+  stroke: rgb(233, 236, 235) !important;
+  stroke-width: 2 !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+/* Explicitly override common shapes inside RF controls */
+.react-flow__controls .react-flow__controls-button svg path { stroke: rgb(233, 236, 235) !important; fill: rgb(233, 236, 235) !important; }
+.react-flow__controls .react-flow__controls-button svg line { stroke: rgb(233, 236, 235) !important; }
+.react-flow__controls .react-flow__controls-button svg rect { stroke: rgb(233, 236, 235) !important; fill: rgb(233, 236, 235) !important; }
+.react-flow__controls .react-flow__controls-button svg circle { stroke: rgb(233, 236, 235) !important; fill: rgb(233, 236, 235) !important; }
+
 /* Handle feedback */
 .react-flow__handle {
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;

@@ -13,6 +13,7 @@ import useGameStore from '@/store/useGameStore';
 import { getLevelById, getNextLevelId } from '@/lib/levels/levelData';
 import { levels } from '@/lib/levels/levelData';
 import { useToast } from '@/components/ui/use-toast';
+import Image from 'next/image';
 import {
   Play,
   RotateCcw,
@@ -150,7 +151,15 @@ export default function LevelPage() {
                   <Home className="w-4 h-4" />
                 </Button>
               </Link>
-              <div>
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/assets/CSS_logo_purple_bg.PNG"
+                  alt="CSS Logo"
+                  width={32}
+                  height={32}
+                  className="rounded-md shadow-sm"
+                  priority
+                />
                 <h1 className="text-2xl font-bold text-off-white">
                   {currentLevel.title}
                 </h1>
@@ -226,6 +235,22 @@ export default function LevelPage() {
             <div className="block md:hidden">
               <GatePalette />
             </div>
+
+            {/* Gate Reference */}
+            <Card className="glass-dark border-lavender/20">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-off-white text-sm">Gate Reference</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1">
+                <div className="text-xs text-off-white/80">
+                  <p><span className="font-bold text-mint">AND:</span> 1 only if both inputs are 1</p>
+                  <p><span className="font-bold text-magenta">OR:</span> 1 if at least one input is 1</p>
+                  <p><span className="font-bold text-violet">XOR:</span> 1 when inputs are different</p>
+                  <p><span className="font-bold text-error">NOT:</span> Inverts the input (1→0, 0→1)</p>
+                </div>
+              </CardContent>
+            </Card>
+
             <TruthTable />
             
             {/* Control Buttons */}
@@ -244,8 +269,8 @@ export default function LevelPage() {
                 <div className="flex gap-2">
                   <Button
                     onClick={undoLastWire}
-                    variant="outline"
-                    className="flex-1 text-off-white"
+                    variant="gate"
+                    className="flex-1"
                     disabled={wiresUsed === 0}
                   >
                     <Undo className="w-4 h-4 mr-2" />
@@ -253,8 +278,8 @@ export default function LevelPage() {
                   </Button>
                   <Button
                     onClick={handleReset}
-                    variant="outline"
-                    className="flex-1 text-off-white"
+                    variant="gate"
+                    className="flex-1"
                   >
                     <RotateCcw className="w-4 h-4 mr-2" />
                     Reset
@@ -264,8 +289,8 @@ export default function LevelPage() {
                 {currentLevel.hint && (
                   <Button
                     onClick={toggleHint}
-                    variant="outline"
-                    className="w-full text-off-white"
+                    variant="gate"
+                    className="w-full"
                   >
                     <Lightbulb className="w-4 h-4 mr-2" />
                     {showHint ? 'Hide' : 'Show'} Hint
@@ -281,8 +306,8 @@ export default function LevelPage() {
                 {currentLevel.mode === 'csfair' && currentLevel.solutionWiring && (
                   <Button
                     onClick={toggleSolution}
-                    variant="outline"
-                    className="w-full text-off-white"
+                    variant="gate"
+                    className="w-full"
                   >
                     <CheckCircle2 className="w-4 h-4 mr-2" />
                     {showSolution ? 'Hide' : 'Show'} Solution

@@ -260,6 +260,7 @@ const Board: React.FC<BoardProps> = ({ className }) => {
           showFitView={true}
           showInteractive={false}
           position="bottom-right"
+          className="text-off-white"
         />
       </ReactFlow>
     </div>

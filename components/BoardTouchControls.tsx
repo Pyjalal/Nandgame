@@ -40,9 +40,9 @@ export default function BoardTouchControls({
     )}>
       <Button
         onClick={zoomIn}
-        variant="ghost"
+        variant="gate"
         size="icon"
-        className="rounded-full w-10 h-10 bg-charcoal text-off-white hover:bg-violet/20"
+        className="rounded-full w-10 h-10"
       >
         <ZoomIn className="w-5 h-5" />
         <span className="sr-only">Zoom In</span>
@@ -50,9 +50,9 @@ export default function BoardTouchControls({
       
       <Button
         onClick={zoomOut}
-        variant="ghost"
+        variant="gate"
         size="icon"
-        className="rounded-full w-10 h-10 bg-charcoal text-off-white hover:bg-violet/20"
+        className="rounded-full w-10 h-10"
       >
         <ZoomOut className="w-5 h-5" />
         <span className="sr-only">Zoom Out</span>
@@ -60,9 +60,9 @@ export default function BoardTouchControls({
       
       <Button
         onClick={fitView}
-        variant="ghost"
+        variant="gate"
         size="icon"
-        className="rounded-full w-10 h-10 bg-charcoal text-off-white hover:bg-violet/20"
+        className="rounded-full w-10 h-10"
       >
         <Maximize className="w-5 h-5" />
         <span className="sr-only">Fit View</span>
