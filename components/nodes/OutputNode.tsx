@@ -16,11 +16,12 @@ const OutputNode: React.FC<NodeProps<OutputNodeData>> = ({ data, selected }) => 
   return (
     <div
       className={cn(
-        'px-4 py-2 shadow-lg rounded-md border-2 transition-transform duration-200 hover:-translate-y-0.5',
+        'px-6 py-4 shadow-lg rounded-md border-2 transition-transform duration-200 hover:-translate-y-0.5 cursor-grab active:cursor-grabbing select-none',
         'bg-gradient-to-b from-charcoal to-charcoal/80',
         isOn ? 'border-mint ring-1 ring-mint/40' : 'border-lavender/30',
         selected && 'ring-2 ring-lavender',
-        !matchesTarget && 'ring-2 ring-error'
+        !matchesTarget && 'ring-2 ring-error',
+        'touch-none' // Improve touch dragging
       )}
       tabIndex={0}
       aria-selected={selected}
@@ -28,14 +29,14 @@ const OutputNode: React.FC<NodeProps<OutputNodeData>> = ({ data, selected }) => 
         data.target !== undefined ? (matchesTarget ? ' target matched' : ' target mismatch') : ''
       }`}
     >
-      <div className="flex items-center">
+      <div className="flex items-center pointer-events-none">
         <Lightbulb
           className={cn(
             'w-5 h-5 mr-2 transition-all',
             isOn ? 'text-warning fill-warning drop-shadow-lg' : 'text-violet/60'
           )}
         />
-        <div className="text-off-white font-bold">{data.label}</div>
+        <div className="text-off-white font-bold text-base">{data.label}</div>
       </div>
       <Handle
         type="target"

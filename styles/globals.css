@@ -135,6 +135,16 @@
   font-size: 12px;
 }
 
+/* Improve node dragging */
+.react-flow__node.dragging {
+  opacity: 0.7;
+  cursor: grabbing !important;
+}
+
+.react-flow__node:active {
+  cursor: grabbing !important;
+}
+
 .react-flow__handle {
   width: 16px;
   height: 16px;
@@ -260,11 +270,19 @@
     box-shadow: 0 5px 10px rgba(30, 31, 41, 0.5); /* Use CS Society charcoal for shadow */
     transform-origin: center;
     transition: transform 0.2s;
+    min-width: 100px; /* Larger touch target on mobile */
+    min-height: 60px; /* Larger touch target on mobile */
   }
-  
+
   /* Scale up nodes slightly when selected for better touch interaction */
   .react-flow__node-selected {
     transform: scale(1.05);
+  }
+
+  /* Improve dragging on mobile */
+  .react-flow__node.dragging {
+    transform: scale(1.1);
+    z-index: 1000;
   }
   
   /* Mobile-friendly controls */
